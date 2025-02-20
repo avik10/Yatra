@@ -1,4 +1,4 @@
-const { User } = require('../models/user.model.cjs');
+const { User } = require('../models/user.model.js');
 
 
 module.exports.createUser = async ({ firstName, lastName, email, password }) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser } = require('../controllers/user.controller.cjs')
+const { createUser } = require('../controllers/user.controller.js')
 const { body } = require('express-validator');
 
 const UserRouter = express.Router();

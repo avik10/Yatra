@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
-const { User } = require('../models/user.model.cjs');
-const { userModel } = require('../models/user.model.cjs');
-const userService = require('../services/user.service.cjs');
+const { User } = require('../models/user.model.js');
+const { userModel } = require('../models/user.model.js');
+const userService = require('../services/user.service.js');
 
 // Controller functions
 
