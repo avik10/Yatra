@@ -1,10 +1,9 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
-
-import connectToDb from './DB/DB.js';
-import express from 'express'
-// import UserRouter from './routes/user.js'
-import cors from 'cors'
+const connectToDb = require('./DB/DB.js');
+const express = require('express')
+const UserRouter = require('./routes/user.routes.cjs');
+const cors = require('cors')
 
 const app = express()       // express setup
 connectToDb();              // Db connected
@@ -14,7 +13,7 @@ app.use(express.urlencoded({ extended: true }))  // set express routers as urlen
 
 
 // // Dynamic routes to controller
-// app.use('/user', UserRouter)
+app.use('/users', UserRouter)
 
 app.get('/', async (req, res) => {
     try {
@@ -26,4 +25,4 @@ app.get('/', async (req, res) => {
 })
 
 
-export default app
+module.exports = app

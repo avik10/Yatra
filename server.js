@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
-import http from 'http';
-import app from './app.js'
+const http = require('http');
+const app = require('./app.js')
 const PORT = process.env.PORT
 
 const server = http.createServer(app)
