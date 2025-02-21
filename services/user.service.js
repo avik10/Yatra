@@ -1,23 +1,25 @@
-const { User } = require('../models/user.model.js');
+const userModel = require('../models/user.model.js');
 
 
-module.exports.createUser = async ({ firstName, lastName, email, password }) => {
-    // try {
-    console.log(User);
-
-    if (!firstName || !email || !password) {
-        throw new Error('All Fields are required');
+module.exports.createUser = async ({ firstname, lastname, email, password }) => {
+    try {
+        if (!firstname || !email || !password) {
+            throw new Error('All Fields are required');
+        }
+        const exist = userModel.findOne({ email: email })
+        if (exist) {
+            throw new Error('User Already exist');
+        }
+        const user = userModel.create({
+            fullname: {
+                firstname,
+                lastname
+            },
+            email,
+            password
+        });
+        return user;
+    } catch (error) {
+        throw new Error('Error creating user: ' + error.message);
     }
-    const user = await new User.create({
-        fullName: {
-            firstName,
-            lastName
-        },
-        email,
-        password
-    });
-    return user;
-    // } catch (error) {
-    //     throw new Error('Error creating user: ' + error.message);
-    // }
 };

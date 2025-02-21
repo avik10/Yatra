@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         select: false,
     },
-    socketId: {
+    socketid: {
         type: String,
     },
 })
@@ -42,8 +42,9 @@ UserSchema.methods.comparePassword = async function (password) {
 
 UserSchema.statics.hashPassword = async function (password) {
     let salt = await bcrypt.genSalt(10);
-    let securePassword = await bcrypt.hash(req.body.password, salt);
+    let securePassword = await bcrypt.hash(password, salt);
     return securePassword
 }
 
-module.exports = mongoose.model('User', UserSchema);
+const userModel = mongoose.model('user', UserSchema);
+module.exports = userModel

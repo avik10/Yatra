@@ -13,7 +13,7 @@ const UserRouter = express.Router();
 // Create a new user
 UserRouter.post('/', [
     body('email').isEmail().withMessage('Invalid Email'),
-    body('fullName.firstName').isLength({ min: 3 }).withMessage('First Name Must be 3 characters or More'),
+    body('fullname.firstname').isLength({ min: 3 }).withMessage('First Name Must be 3 characters or More'),
     body('password').isLength(6).withMessage('Password Must be 6 characters or More'),
 ], createUser);
 
