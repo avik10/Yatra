@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 const connectToDb = require('./DB/DB.js');
 const express = require('express')
-const UserRouter = require('./routes/user.routes.cjs');
+const UserRouter = require('./routes/user.routes.js');
 const cors = require('cors')
 
 const app = express()       // express setup

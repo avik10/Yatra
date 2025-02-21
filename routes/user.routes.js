@@ -12,9 +12,7 @@ UserRouter.post('/', [
     body('password').isLength(6).withMessage('Password Must be 6 characters or More'),
 ], createUser);
 // Create a new user
-UserRouter.get('/', [
-   ,
-], createUser);
+UserRouter.get('/',);
 
 
 UserRouter.get('/login', [
