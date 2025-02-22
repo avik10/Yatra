@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const userModel = require('../models/user.model.js');
 const userService = require('../services/user.service.js');
+const BlacklistToken = require('../models/blacklistTokens.mdoel.js');
 
 // Controller functions
 
@@ -12,11 +13,12 @@ module.exports.createUser = async (req, res) => {
         if (!error.isEmpty()) {
             return res.status(401).json({ error: error.array() });
         }
-        const exist = await userModel.findOne({ email });
-        if (exist) {
+        const { fullname, email, password } = req.body
+        const User = await userModel.findOne({ email });
+        if (User) {
             throw new Error('User Already exist');
         }
-        const { fullname, email, password } = req.body
+
         const hashPwd = await userModel.hashPassword(password)
         const newUser = await userService.createUser({
             firstname: fullname.firstname,
@@ -25,8 +27,8 @@ module.exports.createUser = async (req, res) => {
             password: hashPwd
         })
         const token = newUser.generateAuthToken();
-
-        res.status(201).json({ token, newUser });
+        res.cookie('token', token)
+        res.status(201).json({ newUser, message: 'Account create succefully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -41,7 +43,7 @@ module.exports.loginUser = async (req, res) => {
         }
 
         const { email, password } = req.body
-        const User = await userModel.findOne({ email }, { 'fullname.firstname': 1, 'fullname.lastname': 1, _id: 0 }).select('+password');
+        const User = await userModel.findOne({ email }, { 'fullname.firstname': 1, 'fullname.lastname': 1, }).select('+password');
         if (!User) {
             return res.status(401).json({ message: 'Invalid Email or password' })
         }
@@ -50,11 +52,30 @@ module.exports.loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid Email or password' })
         }
         const token = User.generateAuthToken();
-        return res.status(200).json({ User, token });
+        res.cookie('token', token, { 
+            httpOnly: true,  // Prevents client-side JavaScript access
+            secure: true,    // Ensures cookies are only sent over HTTPS
+            maxAge: 3600000  // Cookie expires in 1 hour (milliseconds)
+        });
+        return res.status(200).json({ token, message: 'Login succefully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
+
+// user profile
+module.exports.getUserProfile = (req, res) => {
+    return res.status(200).json({ user: req.User })
+}
+
+// logout
+module.exports.logout = async (req, res) => {
+    const token = req.header('Authorization').replace('Bearer ', '') || req.cookies.token;
+    await BlacklistToken.create({ token })
+    res.clearCookie('token');
+    return res.status(200).json({ message: 'Logut Successfully' })
+}
+
 
 // Get user by ID
 // module.exports.getUserById = async (req, res) => {

@@ -1,6 +1,7 @@
 const express = require('express');
-const { createUser, loginUser } = require('../controllers/user.controller.js')
+const { createUser, loginUser, getUserProfile, logout } = require('../controllers/user.controller.js')
 const { body } = require('express-validator');
+const authMiddleware = require('../controllers/middlewares/auth.middleware.js');
 
 const UserRouter = express.Router();
 
@@ -11,14 +12,21 @@ UserRouter.post('/', [
     body('fullname.firstname').isLength({ min: 3 }).withMessage('First Name Must be 3 characters or More'),
     body('password').isLength(6).withMessage('Password Must be 6 characters or More'),
 ], createUser);
-// Create a new user
-UserRouter.get('/',);
+
+// get user profile
+UserRouter.get('/', authMiddleware, getUserProfile);
 
 
-UserRouter.get('/login', [
+UserRouter.post('/login', [
     body('email').isEmail().withMessage('Invalid Email'),
     body('password').isLength(6).withMessage('Password Must be 6 characters or More'),
 ], loginUser);
+
+
+// get usr profile
+UserRouter.get('/logout', authMiddleware, logout);
+
+
 
 // Update user by ID
 // UserRouter.put('/:id', userController.updateUser);

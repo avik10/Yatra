@@ -3,14 +3,15 @@ dotenv.config()
 const connectToDb = require('./DB/DB.js');
 const express = require('express')
 const UserRouter = require('./routes/user.routes.js');
-const cors = require('cors')
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express()       // express setup
 connectToDb();              // Db connected
 app.use(cors())
 app.use(express.json())       // set express routers as JSON type data shold accept and retun as JSON format
 app.use(express.urlencoded({ extended: true }))  // set express routers as urlencoded type data shold accept and retun as JSON format
-
+app.use(cookieParser())
 
 // // Dynamic routes to controller
 app.use('/users', UserRouter)
