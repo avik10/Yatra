@@ -5,6 +5,7 @@ const express = require('express')
 const UserRouter = require('./routes/user.routes.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const CaptainRouter = require('./routes/captain.routes.js');
 
 const app = express()       // express setup
 connectToDb();              // Db connected
@@ -15,6 +16,7 @@ app.use(cookieParser())
 
 // // Dynamic routes to controller
 app.use('/users', UserRouter)
+app.use('/captain', CaptainRouter)
 
 app.get('/', async (req, res) => {
     try {
