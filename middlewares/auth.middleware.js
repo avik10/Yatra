@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const userModel = require('../../models/user.model');
-const BlacklistToken = require('../../models/blacklistTokens.mdoel');
+const userModel = require('../models/user.model');
+const BlacklistToken = require('../models/blacklistTokens.mdoel');
 
 const authMiddleware = async (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '') || req.cookies.token;

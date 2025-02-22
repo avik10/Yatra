@@ -99,3 +99,111 @@ This endpoint allows a user to log in by providing their email and password.
   "error": "Error logging in: <error_message>"
 }
 ```
+
+# API Documentation
+
+## Endpoints
+
+### User Profile
+
+**Endpoint:** `GET /user/profile`
+
+**Headers:**
+- `Authorization: Bearer <token>`
+
+**Sample Request:**
+```http
+GET /user/profile HTTP/1.1
+Host: example.com
+Authorization: Bearer <token>
+```
+
+**Sample Response:**
+```json
+{
+    "user": {
+        "_id": "60d0fe4f5311236168a109ca",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "john.doe@example.com"
+    }
+}
+```
+
+### Logout
+
+**Endpoint:** `GET /user/logout`
+
+**Headers:**
+- `Authorization: Bearer <token>`
+
+**Sample Request:**
+```http
+GET /user/logout HTTP/1.1
+Host: example.com
+Authorization: Bearer <token>
+```
+
+**Sample Response:**
+```json
+{
+    "message": "Logout Successfully"
+}
+```
+
+### Create Captain
+
+**Endpoint:** `POST /captains`
+
+**Description:** Creates a new captain.
+
+**Request Body:**
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "vehicleType": "rickshaw",
+    "color": "red",
+    "plate": "ABC123",
+    "capacity": 3
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "newCaptain": {
+    "_id": "60c72b2f9b1e8b001c8e4d5a",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 3,
+      "vehicleType": "rickshaw"
+    },
+    "status": "inactive",
+    "location": {
+      "lat": null,
+      "lng": null
+    }
+  },
+  "message": "Captain created successfully"
+}
+```
+
+**Errors:**
+- `400 Bad Request`: Validation errors or missing fields.
+- `401 Unauthorized`: Invalid input data.
+- `409 Conflict`: User already exists.
