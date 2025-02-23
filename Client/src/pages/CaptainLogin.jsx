@@ -24,19 +24,19 @@ const CaptainLogin = () => {
                 <img src='https://i.pinimg.com/736x/db/67/55/db67557e8d75747aaaa4c9c6a0ec909c.jpg' alt="Logo" className='h-25 w-25 p-5' />
                 <form onSubmit={submitHandler}>
 
-                    <h3 className='text-xl mb-2'>Whats Your email</h3>
+                    <h3 className='text-xl mb-2 font-bold'>Whats Captain email</h3>
                     <input onChange={(e) => { setEmail(e.target.value) }} value={email} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="text" placeholder='email@example.com' name="email" id="email" required />
 
-                    <h3 className='text-xl mb-2'>Password</h3>
-                    <input onChange={(e) => { setPassword(e.target.value) }} value={password} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="password" name="password" id="password" />
+                    <h3 className='text-xl mb-2 font-bold'>Password</h3>
+                    <input placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} value={password} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="password" name="password" id="password" />
 
-                    <button type='submit' className='w-full text-2xl font-bold mb-7 bg-[#111] text-white rounded px-4 py-2 text-lg placeholder:text-base'>Captain Login</button>
+                    <button type='submit' className='w-full text-2xl font-bold mb-7  bg-[yellow] text-black rounded px-4 py-2 text-lg placeholder:text-base'>Captain Login</button>
 
                     <p className='text-center text-xl'>New here ? <Link to='/captain-signup' className='text-blue-600'>Create New Account</Link> </p>
                 </form>
             </div>
             <div>
-                <Link to='/login' className='flex justify-center w-full text-2xl font-bold mb-7 bg-[yellow] text-black rounded px-4 py-2 text-lg placeholder:text-base'>Go to User Login</Link>
+                <Link to='/login' className='flex justify-center w-full text-2xl font-bold  mb-7  bg-[#111] text-white rounded px-4 py-2 text-lg placeholder:text-base'>Go to User Login</Link>
             </div>
 
         </div>

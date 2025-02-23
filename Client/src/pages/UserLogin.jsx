@@ -28,7 +28,7 @@ const UserLogin = () => {
                     <input onChange={(e) => { setEmail(e.target.value) }} value={email} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="text" placeholder='email@example.com' name="email" id="email" required />
 
                     <h3 className='text-xl mb-2'>Password</h3>
-                    <input onChange={(e) => { setPassword(e.target.value) }} value={password} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="password" name="password" id="password" />
+                    <input placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} value={password} className='w-full mb-7 bg-[#eeeeee] rounded border px-4 py-2 text-lg placeholder:text-base' type="password" name="password" id="password" />
 
                     <button type='submit' className='w-full text-2xl font-bold mb-7 bg-[#111] text-white rounded px-4 py-2 text-lg placeholder:text-base'>Login</button>
 
