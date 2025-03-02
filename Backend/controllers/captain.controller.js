@@ -15,9 +15,7 @@ module.exports.createCaptain = async (req, res) => {
         }
         const { fullname, email, password, vehicle } = req.body
         const exist = await Captain.findOne({ email });
-        if (exist
-
-        ) {
+        if (exist) {
             throw new Error('User Already exist');
         }
 

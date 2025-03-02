@@ -1,0 +1,22 @@
+{
+  "name": "concurent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "both": "concurrently \"cd client && npm start\" \"cd backend && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avik10/Yatra.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avik10/Yatra/issues"
+  },
+  "homepage": "https://github.com/avik10/Yatra#readme",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -43,7 +43,7 @@ module.exports.loginUser = async (req, res) => {
         }
 
         const { email, password } = req.body
-        const User = await userModel.findOne({ email }, { 'fullname.firstname': 1, 'fullname.lastname': 1, }).select('+password');
+        let User = await userModel.findOne({ email }).select('+password');
         if (!User) {
             return res.status(401).json({ message: 'Invalid Email or password' })
         }
@@ -51,13 +51,14 @@ module.exports.loginUser = async (req, res) => {
         if (!isPwdMatch) {
             return res.status(401).json({ message: 'Invalid Email or password' })
         }
+        User = await userModel.findOne({ email })
         const token = User.generateAuthToken();
         res.cookie('token', token, { 
             httpOnly: true,  // Prevents client-side JavaScript access
             secure: true,    // Ensures cookies are only sent over HTTPS
             maxAge: 3600000  // Cookie expires in 1 hour (milliseconds)
         });
-        return res.status(200).json({ token, message: 'Login succefully' });
+        return res.status(200).json({ User, token, message: 'Login succefully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

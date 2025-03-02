@@ -7,7 +7,7 @@ const connectToDb = async () => {
         console.log("Connected to DB");
         return connect;
     } catch (error) {
-        console.log("Error: ", error.message);
+        console.error("Error: ", error.message);
     }
 }
 
