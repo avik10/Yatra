@@ -26,7 +26,7 @@ const CaptainProtectedWrapper = ({ children }) => {
             if (response.status === 200) {
                 setTimeout(() => {
                     setIsLoading(false)    
-                }, 3000);
+                }, 1000);
                 setCaptain(response.data.captain)
                 
             }

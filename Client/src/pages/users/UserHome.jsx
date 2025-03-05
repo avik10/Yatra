@@ -124,7 +124,6 @@ const UserHome = () => {
   }, [waitingForDriver])
 
 
-console.log(waitingForDriver);
 
 
   return (
