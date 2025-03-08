@@ -7,6 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const CaptainRouter = require('./routes/captain.routes.js');
 const Mapsrouter = require('./routes/maps.routes.js');
+const Riderouter = require('./routes/ride.routes.js');
 
 const app = express()       // express setup
 connectToDb();              // Db connected
@@ -19,6 +20,7 @@ app.use(cookieParser())
 app.use('/users', UserRouter)
 app.use('/captain', CaptainRouter)
 app.use('/maps', Mapsrouter)
+app.use('/rides', Riderouter)
 
 app.get('/', async (req, res) => {
     try {
