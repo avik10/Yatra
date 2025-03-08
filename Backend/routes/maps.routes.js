@@ -19,7 +19,7 @@ Mapsrouter.get('/get-distance-time', [
 
 
 Mapsrouter.get('/get-suggesitions', [
-    query('input').isLength({ min: 3 }).withMessage('Location should enter at least 3 charactes or more'),
+    query('input').isLength({ min: 3 }).withMessage('Location should enter at least 3 charactes or more')
 ], userMiddleware, getSugesition)
 
 module.exports = Mapsrouter;

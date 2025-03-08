@@ -29,7 +29,6 @@ module.exports.getDistanceTime = async (req, res) => {
     return res.status(200).json(distanceTime);
 }
 
-
 module.exports.getSugesition = async (req, res) => {
     const error = validationResult(req)
     if (!error.isEmpty()) {

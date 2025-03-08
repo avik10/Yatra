@@ -18,8 +18,9 @@ const LookingForDriver = (props) => {
                             <i className="ri-map-pin-fill text-lg"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'><span>From: </span>ABC loc</h3>
-                            <p className='font-sm text-gray-500'>DEF loc</p>
+                            <h3 className='font-medium text-lg'><span>From: </span>
+                                <p className='font-sm text-gray-500'>{props.pickup}</p>
+                            </h3>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 border-b-2 border-gray-200 p-2'>
@@ -27,8 +28,9 @@ const LookingForDriver = (props) => {
                             <i className="ri-map-pin-2-fill text-lg"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'><span>To: </span>ABC loc</h3>
-                            <p className='font-sm text-gray-500'>DEF loc</p>
+                            <h3 className='font-medium text-lg'><span>To: </span>
+                                <p className='font-sm text-gray-500'>{props.destination}</p>
+                            </h3>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 border-b-2 border-gray-200 p-2'>
@@ -36,7 +38,7 @@ const LookingForDriver = (props) => {
                             <i className="ri-money-rupee-circle-fill"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'>125.97</h3>
+                            <h3 className='font-medium text-lg'>{props.fare[props.vehicleType]}</h3>
                             <p className='font-sm text-gray-500'>cash cash</p>
                         </div>
                     </div>

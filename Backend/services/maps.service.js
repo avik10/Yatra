@@ -17,8 +17,9 @@ module.exports.getAddressCoordinates = async (address) => {
 module.exports.getDistanceTime = async (origin, destination) => {
 
     if (!origin || !destination) {
-        res.status(400).json({ error: 'Origin and Destination are required' });
+        throw new Error('Origin and Destination are required');
     }
+    console.log(origin, destination);
 
     try {
         const response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=${process.env.GOOGLE_MAPS_API}`);
@@ -58,6 +59,6 @@ module.exports.getSugesition = async (input) => {
         console.log(error);
         throw error;
     }
-   
+
 
 }

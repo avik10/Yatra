@@ -1,6 +1,13 @@
 import React from 'react'
 
 const ConfirmRide = (props) => {
+
+    const confirmRide = (e) => {
+        props.setvaichleFoundPanel(true);
+        props.setConfirmRidePanel(false);
+        props.createRide();
+    };
+
     return (
         <div>
             <h5 className='absolute w-full top-0 text-center font-light  mb-2 ' onClick={(e) => { props.setConfirmRidePanel(false) }}> <i className="ri-arrow-down-wide-line text-4xl text-gray-400"></i></h5>
@@ -13,8 +20,9 @@ const ConfirmRide = (props) => {
                             <i className="ri-map-pin-fill text-lg"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'><span>From: </span>ABC loc</h3>
-                            <p className='font-sm text-gray-500'>DEF loc</p>
+                            <h3 className='font-medium text-lg'><span>From: </span>
+                                <p className='font-sm text-gray-500'>{props.pickup}</p>
+                            </h3>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 border-b-2 border-gray-200 p-2'>
@@ -22,8 +30,9 @@ const ConfirmRide = (props) => {
                             <i className="ri-map-pin-2-fill text-lg"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'><span>To: </span>ABC loc</h3>
-                            <p className='font-sm text-gray-500'>DEF loc</p>
+                            <h3 className='font-medium text-lg'><span>To: </span>
+                                <p className='font-sm text-gray-500'>{props.destination}</p>
+                            </h3>
                         </div>
                     </div>
                     <div className='flex items-center gap-5 border-b-2 border-gray-200 p-2'>
@@ -31,12 +40,12 @@ const ConfirmRide = (props) => {
                             <i className="ri-money-rupee-circle-fill"></i>
                         </h2>
                         <div>
-                            <h3 className='font-medium text-lg'>125.97</h3>
+                            <h3 className='font-medium text-lg'>{props.fare[props.vehicleType]}</h3>
                             <p className='font-sm text-gray-500'>cash cash</p>
                         </div>
                     </div>
                 </div>
-                <button type="submit" onClick={() => { props.setvaichleFoundPanel(true); props.setConfirmRidePanel(false) }} className='w-full mt-5 bg-black text-white px-4 py-2 rounded-lg justify-center items-center'>Confirm Ride</button>
+                <button type="submit" onClick={confirmRide} className='w-full mt-5 bg-black text-white px-4 py-2 rounded-lg justify-center items-center'>Confirm Ride</button>
             </div>
         </div>
     )

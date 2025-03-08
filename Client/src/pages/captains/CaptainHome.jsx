@@ -11,7 +11,7 @@ const CaptainHome = () => {
   const RidePanelRef = useRef(null)
   const ConfirmRidePanelRef = useRef(null)
 
-  const [RidePanel, setRidePanel] = useState(true)
+  const [RidePanel, setRidePanel] = useState(false)
   const [CaptainconfirmRidePanel, setCaptainconfirmRidePanel] = useState(false)
 
 
