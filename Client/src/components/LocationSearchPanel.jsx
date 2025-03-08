@@ -1,16 +1,14 @@
 import React from 'react';
 
 const LocationSearchPanel = (props) => {
-    const activePanel = 'pickup'; // Define activePanel variable
-
+ 
     const handleClick = (location) => {
-        if (activePanel === 'pickup') {
+        if (props.activeField === 'pickup') {
             props.setPickup(location.description);
-        } else if (activePanel === 'destination') {
+        } else if (props.activeField === 'destination') {
             props.setDestination(location.description);
         }
-        props.setVechilePanel(true);
-        props.setLocationPanelOpen(false);
+        console.log(location);
     }
 
     return (
