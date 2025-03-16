@@ -11,7 +11,7 @@ const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:4000', {
+        const newSocket = io(`${import.meta.env.VITE_BASE_URL}`, {
             transports: ['websocket'],
         });
         setSocket(newSocket);
@@ -20,6 +20,8 @@ const SocketProvider = ({ children }) => {
     }, []);
 
     const sendMessage = (eventName, message) => {
+        console.log('sending message', message);
+        
         if (socket) {
             socket.emit(eventName, message);
         }

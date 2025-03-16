@@ -12,30 +12,21 @@ const CaptainProtectedWrapper = ({ children }) => {
     useEffect(() => {
         if (!token) {
             navigate('/captain-login')
+        } else {
+            axios.get(`${import.meta.env.VITE_BASE_URL}/captain`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    setCaptain(response.data.captain)
+                }
+            }).catch(err => {
+                localStorage.clear()
+                navigate('/captain-login')
+            })
         }
     }, [])
-
-    try {
-        axios.get(`${import.meta.env.VITE_BASE_URL}/captain`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                setCaptain(response.data.captain)
-            }
-        }).catch(err => {
-            localStorage.clear()
-            navigate('/captain-login')
-        })
-
-    } catch (error) {
-        console.error("verify failed:", error)
-    }
-
-
-
-    // check validCaptain
 
     return (
         <>{children}</>

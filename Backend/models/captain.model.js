@@ -29,7 +29,7 @@ const captainSchema = new Schema({
         required: true,
         select: false,
     },
-    socketid: {
+    socketId: {
         type: String,
     },
     status: {

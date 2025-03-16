@@ -53,9 +53,9 @@ function App() {
         <Route path='/captain-signup' element={<CaptainSignup />} />
 
         <Route path='/captain-logout' element={
-          <UserProtectedWrapper>
+          <CaptainProtectedWrapper>
             <CaptainLogout />
-          </UserProtectedWrapper>
+          </CaptainProtectedWrapper>
         } />
 
         <Route path='/captain-home' element={

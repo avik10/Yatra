@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { UserDataContext } from '../../context/userContext'
+import { UserDataContext } from '../../context/UserContext'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css'
@@ -9,6 +9,7 @@ import VaichlePanel from '../../components/VaichlePanel';
 import ConfirmRide from '../../components/ConfirmRide';
 import WaitForDriver from '../../components/WaitingForDriver';
 import LookingForDriver from '../../components/LookingForDriver';
+import { useSocket } from '../../context/SocketContext';
 
 const UserHome = () => {
   const panelRef = useRef(null)
@@ -32,7 +33,17 @@ const UserHome = () => {
   const [vehicleType, setvehicleType] = useState('') // corrected initial state to an empty string
 
   const { user } = useContext(UserDataContext)
+  const { sendMessage, receiveMessage } = useSocket()
 
+  
+  useEffect(() => {
+    sendMessage('join', { userType: 'user', userId: user._id })
+    receiveMessage('rideRequest', (data) => {
+      console.log(data)
+    });
+  }, [])
+
+  
   const submitHandler = (e) => {
     e.preventDefault()
   }
@@ -202,15 +213,15 @@ const UserHome = () => {
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full">
 
         <div className="bg-white p-6 h-[35%] relative">
-          <h5 ref={locationpanelCloseRef} className='absolute top-0 right-2 text-3xl font-bold opacity-0' onClick={(e) => { setLocationPanelOpen(false);}}> <i className="ri-arrow-down-wide-line"></i></h5>
+          <h5 ref={locationpanelCloseRef} className='absolute top-0 right-2 text-3xl font-bold opacity-0' onClick={(e) => { setLocationPanelOpen(false); }}> <i className="ri-arrow-down-wide-line"></i></h5>
           <div className='bottom-0 w-full'>
             <h1 className="text-xl font-bold my-2">Welcome, {user ? user.fullname.firstname : 'Guest'} !</h1>
 
             <h4 className='text-xl font-bold'>find a trip</h4>
             <form onSubmit={submitHandler}>
               <div className="line bg-gray-500 h-16 w-1 rounded-full absolute top-[50%] left-10"></div>
-              <input onClick={(e) => { setLocationPanelOpen(true); setActiveField('pickup');  }} value={pickup} onChange={handlePickupChange} className='bg-[#eee] px-10 py-3 rounded-lg text-lg font-semibold w-full mt-3' type="text" name="pickup" id="pickup" placeholder='Add a pickup Location' autoComplete='off' />
-              <input onClick={(e) => { setLocationPanelOpen(true); setActiveField('destination');  }} value={destination} onChange={handleDestinationChange} className='bg-[#eee] px-10 py-3 rounded-lg text-lg font-semibold w-full mt-3' type="text" name="destination" id="destination" placeholder='Enter Destination' autoComplete='off' />
+              <input onClick={(e) => { setLocationPanelOpen(true); setActiveField('pickup'); }} value={pickup} onChange={handlePickupChange} className='bg-[#eee] px-10 py-3 rounded-lg text-lg font-semibold w-full mt-3' type="text" name="pickup" id="pickup" placeholder='Add a pickup Location' autoComplete='off' />
+              <input onClick={(e) => { setLocationPanelOpen(true); setActiveField('destination'); }} value={destination} onChange={handleDestinationChange} className='bg-[#eee] px-10 py-3 rounded-lg text-lg font-semibold w-full mt-3' type="text" name="destination" id="destination" placeholder='Enter Destination' autoComplete='off' />
 
             </form>
             <button

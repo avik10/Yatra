@@ -1,11 +1,15 @@
 const axios = require('axios');
+const Captain = require('../models/captain.model');
+
 
 module.exports.getAddressCoordinates = async (address) => {
     try {
         const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAPS_API}`);
         const location = response.data.results[0].geometry.location;
+        console.log(location);
+        
         return {
-            ltd: location.lat,
+            lat: location.lat,
             lng: location.lng
         };
     } catch (error) {
@@ -61,4 +65,25 @@ module.exports.getSugesition = async (input) => {
     }
 
 
+}
+
+module.exports.getCaptainInTheRadius = async (lat, lng, radius) => {
+    if (!lat || !lng || !radius) {
+        throw new Error('Latitude, Longitude, and Radius are required');
+    }
+    try {
+        const radiusInRadians = radius / 6378.1;
+        const captains = await Captain.find({
+            location: {
+                $geoWithin: {
+                    $centerSphere: [[lng, lat], radiusInRadians]
+                }
+            },
+            // status: 'active'
+        });
+        return captains;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }

@@ -16,6 +16,7 @@ const initializeSocket = (server) => {
 
 
         socket.on('join', async ({ userId, userType }) => {
+            console.log(userId, userType)
             try {
                 if (userType === 'user') {
                     await User.findByIdAndUpdate(userId, { socketId: socket.id });
@@ -25,6 +26,15 @@ const initializeSocket = (server) => {
                 console.log(`User ${userId} of type ${userType} joined with socket ID: ${socket.id}`);
             } catch (error) {
                 console.error(`Error updating socket ID for user ${userId} of type ${userType}:`, error);
+            }
+        });
+
+        socket.on('update-location-captain', async ({ userId, lat, lng }) => {
+            try {
+                await Captain.findByIdAndUpdate(userId, { location: { lat, lng } });
+                console.log(`Updated location for captain ${userId} to lat: ${lat}, lng: ${lng}`);
+            } catch (error) {
+                console.error(`Error updating location for captain ${userId}:`, error);
             }
         });
 
