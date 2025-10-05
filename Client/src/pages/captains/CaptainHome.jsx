@@ -6,7 +6,7 @@ import gsap from 'gsap'
 import CaptainRidingPanel from '../../components/CaptainRidingPanel'
 import CaptainRidingConfirmPanel from '../../components/CaptainRidingConfirmPanel'
 import { CaptainDataContext } from '../../context/CaptainContext'
-import { useSocket,SocketContext } from '../../context/SocketContext';
+import { useSocket, SocketContext } from '../../context/SocketContext';
 const CaptainHome = () => {
 
   const RidePanelRef = useRef(null)
@@ -18,13 +18,13 @@ const CaptainHome = () => {
   const { captain } = useContext(CaptainDataContext)
   const { sendMessage, receiveMessage } = useSocket()
 
-  const {socket} = useContext(SocketContext)
+  const { socket } = useContext(SocketContext)
 
-  
+
 
   useEffect(() => {
     sendMessage('join', { userType: 'captain', userId: captain._id })
-    
+
     const updateLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -38,13 +38,14 @@ const CaptainHome = () => {
 
     const locationInterval = setInterval(updateLocation, 10000);
     updateLocation()
+    console.log('Location update interval set.');
     return () => clearInterval(locationInterval);
   }, [])
 
 
   receiveMessage('new-ride', (data) => {
-      console.log(data)
-    });
+    console.log(data)
+  });
 
   // Captain confirm Ride Panel
   useGSAP(() => {
