@@ -14,7 +14,7 @@ const getFare = async (pickup, destination) => {
         const farePerKm = {
             auto: 10, // Fare per kilometer for auto
             rickshaw: 15, // Fare per kilometer for rickshaw
-            toto: 10 // Fare per kilometer for toto
+            toto: 15 // Fare per kilometer for toto
         };
 
         const calculateFare = (distance, rate) => {

@@ -72,11 +72,12 @@ module.exports.getCaptainInTheRadius = async (lat, lng, radius) => {
         throw new Error('Latitude, Longitude, and Radius are required');
     }
     try {
-        const radiusInRadians = radius / 6378.1;
+        // Convert radius from kilometers to radians (Earth's radius ≈ 6371 km)
+        const radiusInRadians = radius / 6371;
         const captains = await Captain.find({
             location: {
                 $geoWithin: {
-                    $centerSphere: [[lng, lat], radiusInRadians]
+                    $centerSphere: [[lat, lng], radiusInRadians]
                 }
             },
             // status: 'active'
