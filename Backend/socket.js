@@ -8,7 +8,8 @@ const initializeSocket = (server) => {
     io = new Server(server, {
         cors: {
             origin: ["http://localhost:8000", "http://localhost:5173", "https://yatri-sathi.netlify.app"],
-            methods: ["GET", "POST"],
+            methods: ["GET", "POST", "PUT", "DELETE"],
+            credentials: true
         }
     });
 
