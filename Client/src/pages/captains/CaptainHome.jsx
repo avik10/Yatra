@@ -1,4 +1,4 @@
-import React, { useState, useRef ,useEffect, useContext} from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import CaptainDetailsPanel from './CaptainDetailsPanel'
 import { useGSAP } from '@gsap/react'
@@ -6,7 +6,7 @@ import gsap from 'gsap'
 import CaptainRidingPanel from '../../components/CaptainRidingPanel'
 import CaptainRidingConfirmPanel from '../../components/CaptainRidingConfirmPanel'
 import { CaptainDataContext } from '../../context/CaptainContext'
-import { useSocket } from '../../context/SocketContext';
+import { useSocket,SocketContext } from '../../context/SocketContext';
 const CaptainHome = () => {
 
   const RidePanelRef = useRef(null)
@@ -15,30 +15,36 @@ const CaptainHome = () => {
   const [RidePanel, setRidePanel] = useState(false)
   const [CaptainconfirmRidePanel, setCaptainconfirmRidePanel] = useState(false)
 
-   const { captain } = useContext(CaptainDataContext)
-    const { sendMessage, receiveMessage } = useSocket()
-  
-    
-    useEffect(() => {
-      sendMessage('join', { userType: 'captain', userId: captain._id })
-      receiveMessage('rideRequest', (data) => {
-        console.log(data)
-      });
-      const updateLocation = () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        sendMessage('update-location-captain', { userId: captain._id, lat: latitude, lng: longitude });
-          });
-        } else {
-          console.error('Geolocation is not supported by this browser.');
-        }
-      };
+  const { captain } = useContext(CaptainDataContext)
+  const { sendMessage, receiveMessage } = useSocket()
 
-      const locationInterval = setInterval(updateLocation, 10000);
-      updateLocation()
-      return () => clearInterval(locationInterval);
-    }, [])
+  const {socket} = useContext(SocketContext)
+
+  
+
+  useEffect(() => {
+    sendMessage('join', { userType: 'captain', userId: captain._id })
+    
+    const updateLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          sendMessage('update-location-captain', { userId: captain._id, lat: latitude, lng: longitude });
+        });
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    };
+
+    const locationInterval = setInterval(updateLocation, 10000);
+    updateLocation()
+    return () => clearInterval(locationInterval);
+  }, [])
+
+
+  receiveMessage('new-ride', (data) => {
+      console.log(data)
+    });
 
   // Captain confirm Ride Panel
   useGSAP(() => {
