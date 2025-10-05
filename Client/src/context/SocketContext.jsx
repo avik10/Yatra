@@ -28,6 +28,7 @@ const SocketProvider = ({ children }) => {
     };
 
     const receiveMessage = (eventName, callback) => {
+        console.log('receiving message ' + eventName);
         if (socket) {
             socket.on(eventName, callback);
         }
